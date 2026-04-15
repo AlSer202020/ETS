@@ -1,0 +1,96 @@
+@startuml
+
+class Libreria {
+- String nombre
+- List<Libro>libros
+- Direccion direccion
+
++ Libreria(String nombre, Direccion direccion)
++ void agredarLibro(Libro libro)
++ void prestarLibro(Libro libro, Usuario usuario)
+}
+
+note right of Libreria #orange
+Esta clase representa una librería física
+con una lista de libros y una ubicación fija.
+end note
+
+class Direccion {
+- String calle
+- String ciudad
+
++ Direccion(String calle, String ciudad)
+}
+
+note left of Direccion #lightgreen
+Define la dirección de una librería,
+incluyendo calle y ciudad.
+end note
+
+class Libro {
+- String titulo
+- String autor
+
++ Libro(String titulo, String autor, String formato)
++ void usar()
+}
+
+abstract class ElementoLectura {
+- String formato
+
++ ElementoLectura(String formato)
+}
+
+interface Material {
++ void usar()
+}
+
+class Papel {
+- String tamano
+
++ Papel(String tamano)
++ void usar()
+}
+
+note bottom of Papel #lightblue
+Define el tamano del papel utilizado.
+end note
+
+class Lapiz {
+- String color
+
++ Lapiz(String tipo, String color)
++ void usar()
+}
+
+note top of Lapiz #red
+Representa un lapiz usado para escribir y dibujar.
+end note
+
+class Usuario {
+- String nombre
+- String email
+
++ usuario(String nombre, String email)
+}
+
+abstract class ElementoEscritura {
+- String tipo
+
++ ElementoEscritura(String tipo)
+}
+
+Libreria *-- Direccion:Ubicación fija
+Libro o-- Libreria:Contiene 
+Libro --|> ElementoLectura
+Libro ..> Material
+Libro --|> Material
+Papel ..> Material
+Papel --|> Material
+Lapiz ..> Material
+Lapiz --|> Material
+Usuario ..> Lapiz:Puede usar
+Lapiz --|> ElementoEscritura
+Libreria --> Usuario
+
+@enduml
