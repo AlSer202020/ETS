@@ -1,0 +1,77 @@
+@startuml
+
+abstract class Personaje {
+# Nombre: String
+# nivel: Int
+# CuerpoFisico: cuerpo
+
++ Personaje(String nombre, int nivel)
++ atacar(): void
+}
+
+class Guerrero {
++ Guerrero(String nombre, int nivel)
+}
+
+class Mago {
++ Mago(String nombre, int nivel)
+
++ atacar(Hechizo hechizo): void
+}
+
+class Obstaculo {
+- String nombreObstaculo
++ int resistencia
+
++ Obstaculo(String nombreObstaculo,int resistencia )
+}
+
+class CuerpoFisico {
+- x: int
+- y: int
+- z: int
+- hitbox: int
+
++ cuerpoFisico(int x, int y, int z, int hitbox)
+}
+
+class Gremio {
+- Personaje[] ArrayPersonajes
+
++ Gremio (Personaje[] ArrayPersonajes)
+}
+
+class Hechizo  {
+- String nombre
+- tipo: int
+
++ Hechizo(String nombre)
++ usarHechizo(): void
+}
+
+interface Atacable {
++ recibirDano(int cantidad): void
+}
+
+note top of Guerrero #lightblue
+El guerrero recibe un +10 de bonificación si 
+ataca con armas pesadas.
+end note
+
+note bottom of Hechizo #lightgreen
+Depende del tipo de echizo (valor int) cura al 
+personaje o aumenta el danho al atacar
+end note
+
+note bottom of Personaje
+Alexey Serebryakov
+end note
+
+Guerrero <|-- Personaje
+Mago <|-- Personaje
+Personaje <|.. Atacable
+Obstaculo <|.. Atacable
+CuerpoFisico *-- Personaje
+Personaje --o "1..*" Gremio
+Mago ..> Hechizo
+@enduml

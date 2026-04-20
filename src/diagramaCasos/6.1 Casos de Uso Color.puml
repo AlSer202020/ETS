@@ -1,0 +1,38 @@
+@startuml
+left to right direction
+
+' Definimos los actores con sus colores personalizados
+actor "Usuario no registrado"  as Usuario #Lime
+actor Cliente #LightBlue
+actor Vendedora #LightGreen
+actor "Responsable de Envíos" as ResponsableEnvios #Orange
+
+package "Sistema de Gestión de Pedidos" {
+    ' Colores para los casos de uso (puedes agruparlos por color según su funcionalidad)
+    usecase "Registrar Pedido" as CU01 #LightYellow
+    usecase "Registrar Datos Personales" as CU02 #LightYellow
+    usecase "Consultar Estado de Pedido" as CU03 #LightCyan
+    usecase "Gestionar Envío" as CU04 #FFE4E1
+    usecase "Cancelar Pedido" as CU05 #LightCyan
+}
+
+' Relaciones de los actores con los Casos de Uso
+Usuario <|-- Cliente: Es un
+Usuario -- CU01
+Vendedora -- CU01
+
+Cliente -- CU03
+Vendedora -- CU03
+
+ResponsableEnvios -- CU04
+
+' Relaciones entre Casos de Uso
+CU01 ..> CU02 : <<include>>
+CU05 ..> CU03 : <<extend>>
+
+note bottom of CU01
+  El acuerdo de la forma de pago 
+  forma parte del flujo de Registrar Pedido.
+end note
+
+@enduml
